@@ -63,7 +63,7 @@ def gerar_pdf_consolidado(df_vendas, df_evol):
     pdf.rect(0, 0, 210, 40, 'F')
     pdf.set_text_color(255, 255, 255)
     pdf.set_font("Arial", 'B', 18)
-    pdf.cell(190, 15, "BI REPORT ESTRATEGICO - CLS OUTLET", ln=True, align='C')
+    pdf.cell(190, 15, "RELATÓRIO REPORT ESTRATEGICO - CLS OUTLET", ln=True, align='C')
     pdf.set_font("Arial", size=10)
     pdf.cell(190, 10, "Responsavel Tecnico: Wayner Moraes | Engenheiro de Software", ln=True, align='C')
     
@@ -78,18 +78,18 @@ def gerar_pdf_consolidado(df_vendas, df_evol):
     liquida_dia = df_vendas['Total (BRL)'].apply(limpar_valor).sum()
     qtd_dia = df_vendas['Unidades'].apply(limpar_valor).sum()
 
-    pdf.set_font("Arial", size=11)
+    pdf.set_font("Arial", size=12)
     pdf.cell(95, 8, f"Unidades Vendidas: {int(qtd_dia)}", ln=0)
     pdf.cell(95, 8, f"Venda Bruta: R$ {bruta_dia:,.2f}", ln=1)
-    pdf.set_font("Arial", 'B', 11); pdf.set_text_color(0, 100, 0)
+    pdf.set_font("Arial", 'B', 12); pdf.set_text_color(0, 100, 0)
     pdf.cell(190, 8, f"FATURAMENTO LIQUIDO: R$ {liquida_dia:,.2f}", ln=1)
     pdf.set_text_color(0, 0, 0)
     
     # --- NOVIDADE: ANÁLISE DE STATUS (ESTADO) ---
     pdf.ln(3)
-    pdf.set_font("Arial", 'B', 11)
+    pdf.set_font("Arial", 'B', 12)
     pdf.cell(190, 8, "Resumo de Status dos Pedidos:", ln=1)
-    pdf.set_font("Arial", size=10)
+    pdf.set_font("Arial", size=12)
     
     # Procura a coluna Estado ou Status dinamicamente
     col_estado = next((c for c in df_vendas.columns if 'estado' in c.lower() or 'status' in c.lower()), None)
@@ -114,7 +114,7 @@ def gerar_pdf_consolidado(df_vendas, df_evol):
     pdf.ln(10)
     pdf.set_font("Arial", 'B', 14); pdf.set_fill_color(230, 230, 230)
     pdf.cell(190, 10, "2. EVOLUCAO DO NEGOCIO (ULTIMOS 30 DIAS)", ln=True, fill=True)
-    pdf.ln(2); pdf.set_font("Arial", size=11)
+    pdf.ln(2); pdf.set_font("Arial", size=12)
 
     if df_evol is not None:
         col_canc = next((c for c in df_evol.columns if 'canceladas' in c.lower() and 'quantidade' in c.lower()), None)
@@ -131,7 +131,7 @@ def gerar_pdf_consolidado(df_vendas, df_evol):
         preco_unidade = df_evol['Preço médio por unidade'].apply(limpar_valor).mean()
 
         pdf.cell(95, 8, f"Visitas Totais: {int(visitas)}", ln=0)
-        pdf.cell(95, 8, f"Qtd de Vendas: {int(vendas_qtd)}", ln=1)
+        pdf.cell(95, 8, f"Quantidade de Vendas: {int(vendas_qtd)}", ln=1)
         pdf.cell(95, 8, f"Vendas Brutas (30d): R$ {vendas_brutas:,.2f}", ln=0)
         pdf.cell(95, 8, f"Ticket Medio: R$ {ticket_medio:,.2f}", ln=1)
         pdf.cell(95, 8, f"Preco Medio Unidade: R$ {preco_unidade:,.2f}", ln=1)
@@ -146,7 +146,7 @@ def gerar_pdf_consolidado(df_vendas, df_evol):
             inicio = df_evol[col_data].iloc[0]
             fim = df_evol[col_data].iloc[-1]
             pdf.ln(5)
-            pdf.set_font("Arial", 'I', 9)
+            pdf.set_font("Arial", 'I', 10)
             pdf.cell(190, 8, f"Periodo Analisado: {inicio} ate {fim}", ln=1)
     else:
         pdf.cell(190, 8, "Nao foi possivel ler os dados da planilha de evolucao.", ln=1)
